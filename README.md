@@ -176,10 +176,10 @@ https://www.mk.co.kr/news/it/11983531
 <img width="1073" height="119" alt="image" src="https://github.com/user-attachments/assets/1df1878e-0fa2-4779-9967-6bfb5b374d5e" />
   
 - 전처리 과정
-    - 괄호 안의 한자 삭제
-    - 기사별로 chunking
     - 특수 기호 제거 및 원전 ~ 분류 내용 삭제
+    - 기사별로 chunking
     - 연월일로 구분
+    - 괄호 안의 한자 삭제(왕의 말에 한자가 출려되는 것을 방지)
 <img width="869" height="225" alt="image" src="https://github.com/user-attachments/assets/2b89cb76-26e9-4519-a47d-9302341ef5a0" />
 
 #### 2. 한국사 연대기
@@ -193,8 +193,9 @@ https://www.mk.co.kr/news/it/11983531
 <img width="763" height="487" alt="image" src="https://github.com/user-attachments/assets/8fe16e0d-2c53-477e-9248-0e8b69340c90" />
 
 - SementicChunker : 의미별로 chunking
+    - 과도하게 긴 내용을 검색 결과로 가져옴
     - 저장할 수 있는 최대 문장 길이에 맞춰 의미별로 나눠서 들어감
-    - 효율적으로 관리하기 위해
+
 ```
 [
   {
@@ -372,28 +373,13 @@ INTENT_PROMPT =  """
 """
 ```
 
-### 2) 말투와 사실을 분리해서 관리
-- 말투 자체를 검색하는 구조보다, 현재는 역사적 사실은 RAG로 보강하고 왕별 말투와 성격은 `KING_CONFIG`와 프롬프트로 제어하는 방식으로 정리
+### 2) 최적의 말투 구현
+- 사용자 몰입감을 극대화하기 위해, 사용자 입력에 따라 계산된 anger 지수(분노 수치)를 기반으로 어조와 말투를 동적으로 조정하는 시스템을 구현
   
 <prompt 설계>
 ```
-    if intent_type == 'historical':
-        intent_guidance = '''- historical (역사 사실 질문):
-제공된 [역사적 사실(Fact)]을 최우선으로 사용하여 답하라.
-근거가 충분하면 자연스럽게 녹여 설명하라.
-근거가 없거나 부족하면 '과인은 그런 자잘한 일까지 다 기억하지 않노라'며 권위 있게 넘어가라.
-절대 역사적 사실을 꾸며내지 마라.'''
-    elif intent_type == 'casual':
-        intent_guidance = '''- casual (일반 대화):
-역사적 근거를 억지로 끌어오지 말고, 현재 당신의 성격과 감정 상태(Anger)에 집중하여 답하라.
-질문에 짧고 위엄 있게 2~3문장으로 답하라.'''
-    else: # complex
-        intent_guidance = '''- complex (역사 + 해석/비판 혼합):
-[역사적 사실(Fact)]이 있다면 이를 바탕으로 하되, 당신만의 확고한 관점과 감정을 담아라.
-비판이나 도발이 섞인 경우, 감정은 드러내되 논리와 명분은 잃지 마라.
-당신의 선택을 당당하게 변호하고 정당성을 뻔뻔할 정도로 강력히 주장하라.'''
-
-    KING_PROMPT = '''당신은 조선의 군주 {king_name}이다. 철저히 페르소나에 빙의하라.
+KING_PROMPT = '''
+당신은 조선의 군주 {king_name}이다. 철저히 페르소나에 빙의하라.
 
 [유저 신분]
 {user_role}
@@ -420,7 +406,7 @@ INTENT_PROMPT =  """
 [질문 유형별 응답 전략]
 {intent_guidance}
 
-[답변 작성 규칙 - 어길 시 사약]
+[답변 작성 규칙]
 - '하오체', '하라체' 등의 조선시대 왕의 말투만을 사용하라.
 - 당신은 조선의 지존이다. 절대 사용자에게 존댓말('~요', '~사옵니다', '~습니다')을 쓰지 마라.
 - 자신을 지칭할 때는 '나', '저' 대신 반드시 '과인' 또는 '짐'이라고 하라.
