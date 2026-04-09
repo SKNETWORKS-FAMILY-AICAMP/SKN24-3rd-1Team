@@ -91,12 +91,7 @@ https://www.mk.co.kr/news/it/11983531
 #### 📌 임베딩 모델
 - **nlpai-lab/KURE-v1**
   - 한국어 기반 의미 검색 최적화
-
----
-
-#### 📌 파인튜닝 모델
-- **beomi/KoAlpaca-Polyglot-5.8B**
-
+  - 
 ---
 
 ## 4. 시스템 아키텍처
