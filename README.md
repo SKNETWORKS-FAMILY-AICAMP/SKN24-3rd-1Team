@@ -119,7 +119,7 @@ https://www.mk.co.kr/news/it/11983531
 - 사용자의 질문이 어떤 유형인지 분류
 - `historical`, `casual`, `complex`로 구분
 - RAG 필요 여부(`need_rag`)와 검색 질의어(`search_queries`) 생성
-- 
+
 ---
 
 ### 3️⃣ retrieve
@@ -129,14 +129,21 @@ https://www.mk.co.kr/news/it/11983531
 
 ---
 
-### 4️⃣ king
+### 4️⃣ max_anger_event
+
+- `'is_max_anger' == False` 일 때만 실행
+- 엔터네이너적 특수 이벤트 상황 부
+
+---
+
+### 5️⃣ king
 - 최종 답변 생성 노드
 - 왕별 캐릭터 설정 + 감정 상태 + 검색 결과를 종합
 - 질문 유형에 따라 역사 기반 답변 또는 캐릭터형 답변 생성
 
 ---
 
-### 5️⃣ scene
+### 6️⃣ scene
 - 답변 직후의 장면, 분위기, 전하의 표정, 주변 반응 등을 짧게 묘사
 - 대화 몰입감을 높이는 보조 노드
 
