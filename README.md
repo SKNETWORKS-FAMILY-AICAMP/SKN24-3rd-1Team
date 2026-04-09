@@ -307,6 +307,33 @@ def retrieve_node(state, vectorstore):
     return {'retrieved_context': fact_ctx}
 ```
 
+## 9. 테스트 계획 및 결과 보고서
+
+### 테스트 계획
+
+다음 관점에서 테스트를 진행했습니다.
+
+1. **질문 의도 분류 테스트**
+    - 역사 질문 / 일반 대화 / 복합 질문이 올바르게 분류되는지 확인
+2. **필요한 RAG를 잘 가져오는지에 대한 테스트**
+    - 단순 대화에서는 검색 없이 바로 응답하는지 확인
+    - 역사 질문에서는 검색을 수행하는지 확인
+3. **캐릭터 일관성 테스트**
+    - 세조, 세종, 단종 등 왕별 말투와 가치관 차이가 드러나는지 확인
+4. **감정 반응 테스트**
+    - 공손한 질문 / 무례한 질문에 따라 anger_level이 달라지는지 확인
+5. **장면 묘사 테스트**
+    - 답변 이후 scene이 상황에 맞게 생성되는지 확인
+
+### 테스트 결과 요약
+
+- 역사 질문에서 RAG 기반 답변이 일반 생성보다 더 안정적이었다.
+- 단순 대화에서 RAG를 생략하는 조건 분기를 통해 응답 속도를 개선할 수 있었다.
+- 감정 분석을 도입하자 왕의 반응 톤이 더 자연스럽게 변했다.
+- scene 노드를 추가하여 대화가 단순 QA가 아니라 상황극처럼 느껴지게 만들 수 있었다.
+
+---
+
 ## 10. 개선 노력
 ### 1) RAG를 항상 쓰지 않고 조건 분기로 최적화
 - 처음에는 모든 질문에 대해 검색을 수행하는 구조를 고려했지만, 일반 대화까지 모두 RAG를 거치면 응답 속도가 느려지고 필요 없는 검색 결과가 들어오는 문제 발생
@@ -460,14 +487,46 @@ SCENE_PROMPT = '''
 ```
 
 ### 4) Qwen/ Blossom / Exaone / Kanana 모델 비교
+### 1️⃣ 모델 선정 기준
 **모델 선정 기준**
 
 - 한국어 처리 능력: 조선 시대의 고어를 다루어야 하기 때문에 비교적 뛰어난 한국어 처리 능력이 요구됨
 - 응답 속도 : 유사한 성능의 모델 중에는 규모가 작거나 응답 속도가 더 빠른 모델을 선택
 
-**최종 선택 모델: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct**
+### 2️⃣ 모델별 속도 테스트
+#### 4-2-1) Qwen 3.5 8b
+- 페르소나 생성 28.29초
+- 최초 배경 생성 28.90초
+- 답변 출력 46.38초
+
+<img width="1137" height="767" alt="image" src="https://github.com/user-attachments/assets/91fc232c-595a-45d3-a8b9-136b95b18cb8" />
+
+#### 4-2-2) Azure99/Blossom-V6.3-8B
+- 페르소나 생성 31.52초
+- 최초 배경 생성 29.94초
+- 답변 출력 56.29초
+
+<img width="1380" height="786" alt="image" src="https://github.com/user-attachments/assets/df9e70e4-d16e-4d4f-9212-c33a63eff2b0" />
+
+#### 4-2-3) EXAONE-3.5-2.4B-Instruct
+- 페르소나 생성 10.12초
+- 최초 배경 생성 5.23초
+- 답변 출력 10.12초
+
+<img width="1442" height="761" alt="image" src="https://github.com/user-attachments/assets/0b8f938f-7414-4a2c-b495-f8534bf9de9b" />
+
+#### 4-2-4) kanana-1.5-8b-instruct-2505
+- 페르소나 생성 30.54초
+- 최초 배경 생성 30.40초
+- 답변 출력 1분 55.07초
+
+<img width="1514" height="563" alt="image" src="https://github.com/user-attachments/assets/f7bb9170-d265-45f6-8051-eadcbacb6f7a" />
+<img width="1501" height="606" alt="image" src="https://github.com/user-attachments/assets/dac321e7-28a8-4498-831a-81cc80b9eaac" />
+
+### 3️⃣ 최종 선택 모델: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct
 
 - 실험 및 사용 결과,
 
 Qwen은 한국어 처리에서 상대적으로 자연스러움이 부족한 경향이 있었으며, Blossom은 일상 대화 상황에서 응답의 일관성과 완성도가 낮은 경우가 관찰됨. Kanana는 한국어 처리 능력은 우수했으나, 동일 환경에서 EXAONE 대비 응답 속도가 다소 느리게 나타남
 
+<img width="1184" height="135" alt="image" src="https://github.com/user-attachments/assets/fe74db41-b64f-4f20-a6b3-86d0701284b1" />
