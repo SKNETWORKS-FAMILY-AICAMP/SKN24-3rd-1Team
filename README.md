@@ -493,29 +493,61 @@ SCENE_PROMPT = '''
 - 한국어 처리 능력: 조선 시대의 고어를 다루어야 하기 때문에 비교적 뛰어난 한국어 처리 능력이 요구됨
 - 응답 속도 : 유사한 성능의 모델 중에는 규모가 작거나 응답 속도가 더 빠른 모델을 선택
 
-### 2️⃣ 모델별 속도 테스트
-#### 4-2-1) Qwen 3.5 8b
+### 2️⃣ 테스트 시나리오
+```
+[테스트 케이스] 성군과 RAG 검색 엔진 검증
+가장 정석적인 역사 질문을 던져서 데이터베이스 검색(Retrieve) 및 답변 생성 기능이 정상 작동하는지 확인합니다.
+
+설정 조건
+
+대상 왕: 세종
+
+신분: 유생
+
+테스트 입력 (유저 발화)
+
+"전하, 훈민정음을 창제하신 참된 뜻이 무엇이옵니까? 어찌하여 새로운 문자를 만드시려 하시옵니까?"
+
+예상되는 시스템 로그 (흐름)
+
+[감정 변화] +0 ➡️ 현재 분노 수치: 0/100 (존중하는 어조이므로 분노 상승 없음)
+
+[분석 결과] 유형: historical | RAG: True | 쿼리: ['세종 훈민정음']
+
+[정보 검색] 실록과 역사 데이터를 찾고 있습니다... -> 팩트 검색 완료 (RAG 적용됨)
+
+[답변 생성] 전하께서 윤음을 내리고 계십니다...
+
+예상 결과 (출력)
+
+세종의 답변: 검색된 팩트를 바탕으로 애민 정신(백성을 불쌍히 여김)을 논리적이고 인자한 어조로 설명함.
+
+배경 묘사: 은은한 묵향이 퍼지는 편전의 학구적이고 차분한 분위기가 묘사됨.
+```
+
+### 3️⃣ 모델별 속도 테스트
+#### 4-3-1) Qwen 3.5 8b
 - 페르소나 생성 28.29초
 - 최초 배경 생성 28.90초
 - 답변 출력 46.38초
 
 <img width="1137" height="767" alt="image" src="https://github.com/user-attachments/assets/91fc232c-595a-45d3-a8b9-136b95b18cb8" />
 
-#### 4-2-2) Azure99/Blossom-V6.3-8B
+#### 4-3-2) Azure99/Blossom-V6.3-8B
 - 페르소나 생성 31.52초
 - 최초 배경 생성 29.94초
 - 답변 출력 56.29초
 
 <img width="1380" height="786" alt="image" src="https://github.com/user-attachments/assets/df9e70e4-d16e-4d4f-9212-c33a63eff2b0" />
 
-#### 4-2-3) EXAONE-3.5-2.4B-Instruct
+#### 4-3-3) EXAONE-3.5-2.4B-Instruct
 - 페르소나 생성 10.12초
 - 최초 배경 생성 5.23초
 - 답변 출력 10.12초
 
 <img width="1442" height="761" alt="image" src="https://github.com/user-attachments/assets/0b8f938f-7414-4a2c-b495-f8534bf9de9b" />
 
-#### 4-2-4) kanana-1.5-8b-instruct-2505
+#### 4-3-4) kanana-1.5-8b-instruct-2505
 - 페르소나 생성 30.54초
 - 최초 배경 생성 30.40초
 - 답변 출력 1분 55.07초
@@ -523,7 +555,7 @@ SCENE_PROMPT = '''
 <img width="1514" height="563" alt="image" src="https://github.com/user-attachments/assets/f7bb9170-d265-45f6-8051-eadcbacb6f7a" />
 <img width="1501" height="606" alt="image" src="https://github.com/user-attachments/assets/dac321e7-28a8-4498-831a-81cc80b9eaac" />
 
-### 3️⃣ 최종 선택 모델: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct
+### 4️⃣ 최종 선택 모델: LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct
 
 - 실험 및 사용 결과,
 
