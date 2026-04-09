@@ -34,11 +34,13 @@
 
 
 <img width="598" height="336" alt="image" src="https://github.com/user-attachments/assets/d4997a73-b92f-43e2-9e1a-f6c3845c50c8" />
+</br>
 https://times.postech.ac.kr/news/articleView.html?idxno=20920
   
 최근 청년층의 역사 인식 부족 문제가 드러나고 있다. 기사에 따르면 대학생 4명 중 1명은 광복절의 날짜를 정확히 알지 못했으며, 태극기 문양과 같은 기본적인 역사·국가 상징에 대한 이해도도 낮은 것으로 나타났다. 또한 청소년층에서도 한국전쟁 발발 연도를 모른다고 답한 비율이 52.7%에 달하는 등 역사 인식 부족 현상이 확인되었다.
 
 <img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/03bb7129-01b8-41bc-8ce6-3f04fa8ede8f" />
+</br>
 https://www.mk.co.kr/news/it/11983531 
   
 동시에 AI 챗봇 시장에서는 정보 검색형 서비스를 넘어, 캐릭터와 대화하며 정서적 교감과 몰입을 경험하는 형태가 확산되고 있다. 실제로 2026년 2월 기준 한국인이 가장 오래 사용한 AI 챗봇 앱은 캐릭터 대화 서비스 ‘제타’로 나타났다. 이러한 흐름은 이용자들이 상호작용성과 서사성을 갖춘 AI 경험에 익숙해지고 있음을 보여준다.
@@ -91,14 +93,12 @@ https://www.mk.co.kr/news/it/11983531
 #### 📌 임베딩 모델
 - **nlpai-lab/KURE-v1**
   - 한국어 기반 의미 검색 최적화
-  - 
 ---
 
 ## 4. 시스템 아키텍처
 
 ### 🔄 전체 흐름
-
-<img width="654" height="711" alt="image" src="https://github.com/user-attachments/assets/b341a41b-ecc3-44e8-aeb7-e1f0f34d98f1" />
+<img width="780" height="844" alt="Frame 7" src="https://github.com/user-attachments/assets/2109db01-eaad-40f7-923b-0ed4b19304a1" />
 
 ---
 
