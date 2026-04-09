@@ -526,7 +526,7 @@ SCENE_PROMPT = '''
 ```
 
 ### 3️⃣ 모델별 속도 테스트
-#### 4-3-1) Qwen 3.5 8b
+#### 4-3-1) Qwen/Qwen3.5
 - 페르소나 생성 28.29초
 - 최초 배경 생성 28.90초
 - 답변 출력 46.38초
@@ -561,4 +561,5 @@ SCENE_PROMPT = '''
 
 Qwen은 한국어 처리에서 상대적으로 자연스러움이 부족한 경향이 있었으며, Blossom은 일상 대화 상황에서 응답의 일관성과 완성도가 낮은 경우가 관찰됨. Kanana는 한국어 처리 능력은 우수했으나, 동일 환경에서 EXAONE 대비 응답 속도가 다소 느리게 나타남
 
-<img width="1184" height="135" alt="image" src="https://github.com/user-attachments/assets/fe74db41-b64f-4f20-a6b3-86d0701284b1" />
+<img width="1187" height="135" alt="image" src="https://github.com/user-attachments/assets/03a65f62-4cb3-4e6b-b602-e557fe674381" />
+
